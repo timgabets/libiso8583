@@ -2,11 +2,9 @@ CC=g++
 CFLAGS=-g -O0 -std=c++11 -Wall -I./include
 
 BIN=bin
-SRC=src
-OBJ=obj
 
 all:
-	$(CC) $(CFLAGS) -c $(SRC)/factorial.cc -o $(OBJ)/factorial.o
+	$(CC) $(CFLAGS) -c src/factorial.cc -o obj/factorial.o
 
 test: all
 	$(CC) $(CFLAGS) -c tests/factorial_testsuite.cc -o obj/factorial_testsuite.o
