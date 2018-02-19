@@ -1,9 +1,9 @@
 CC=g++
 CFLAGS=-g -O0 -std=c++11 -Wall -I./include
-SRC=src
-OBJ=obj
 
 BIN=bin
+SRC=src
+OBJ=obj
 
 all:
 	$(CC) $(CFLAGS) -c $(SRC)/factorial.cc -o $(OBJ)/factorial.o
