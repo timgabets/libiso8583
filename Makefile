@@ -4,7 +4,7 @@ CFLAGS=-g -O0 -std=c++11 -Wall -I./include
 BIN=bin
 
 SOURCES=src/factorial.cc tests/factorial_testsuite.cc tests/main.cc
-OBJFILES=obj/factorial.o obj/factorial_testsuite.o obj/main.o
+OBJFILES=$(wildcard obj/*.o)
 
 obj/factorial.o: $(SOURCES)
 	$(CC) $(CFLAGS) -c src/factorial.cc -o obj/factorial.o
