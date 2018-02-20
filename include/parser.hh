@@ -1,6 +1,3 @@
-
-
-
 typedef struct iso8583msg {
 	int mti;
 	char PAN[19]; 		// DE 02 - Primary Account Number
