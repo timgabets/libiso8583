@@ -6,10 +6,9 @@ BIN=bin
 SOURCES=src/factorial.cc tests/factorial_testsuite.cc tests/main.cc
 OBJFILES=$(wildcard obj/*.o)
 
-obj/factorial.o: $(SOURCES)
-	$(CC) $(CFLAGS) -c src/factorial.cc -o obj/factorial.o
-	$(CC) $(CFLAGS) -c tests/factorial_testsuite.cc -o obj/factorial_testsuite.o
-	$(CC) $(CFLAGS) -c tests/main.cc -o obj/main.o
+all: $(SOURCES)
+	$(CC) $(CFLAGS) -c $^ 
+	@mv *.o obj/
 
 test: $(OBJFILES)
 	$(CC) $(CFLAGS) $^ -o bin/tests
