@@ -1,15 +1,15 @@
 CC=g++
 CFLAGS=-g -O0 -std=c++11 -Wall -I./include
 
-SOURCES=$(wildcard src/*.cc)
+SRCS=$(wildcard src/*.cc)
 TESTS=$(wildcard tests/*.cc)
-OBJFILES=$(wildcard obj/*.o)
+OBJS=$(wildcard obj/*.o)
 
-all: $(SOURCES) $(TESTS)
+all: $(SRCS) $(TESTS)
 	$(CC) $(CFLAGS) -c $^ 
 	@mv *.o obj/
 
-test: $(OBJFILES)
+test: $(OBJS)
 	$(CC) $(CFLAGS) $^ -o bin/tests
 
 clean: 
