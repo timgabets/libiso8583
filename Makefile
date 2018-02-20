@@ -1,8 +1,8 @@
 CC=g++
 CFLAGS=-g -O0 -std=c++11 -Wall -I./include
 
-SOURCES=src/factorial.cc 
-TESTS=tests/factorial_testsuite.cc tests/main.cc
+SOURCES=$(wildcard src/*.cc)
+TESTS=$(wildcard tests/*.cc)
 OBJFILES=$(wildcard obj/*.o)
 
 all: $(SOURCES) $(TESTS)
