@@ -6,21 +6,21 @@ OBJDIR=obj
 
 SRCS=$(wildcard src/*.cc)
 TESTS=$(wildcard tests/*.cc)
-OBJS=$(wildcard obj/*.o)
+OBJS=$(patsubst src/%.cc,obj/%.o, $(SRCS))
+
+$(OBJS): $(SRCS) $(TESTS) | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $^ 
+	@mv *.o $(OBJDIR)
+
+test: $(patsubst tests/%.cc,obj/%.o, $(TESTS)) $(OBJS) | $(BINDIR)
+	$(CC) $(CFLAGS) $^ -o $(BINDIR)/tests
+	@$(BINDIR)/tests
 
 $(BINDIR):
 	@mkdir $(BINDIR)
 
 $(OBJDIR):
 	@mkdir $(OBJDIR)
-
-all: $(SRCS) $(TESTS) | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $^ 
-	@mv *.o $(OBJDIR)
-
-test: $(OBJS) | $(BINDIR)
-	$(CC) $(CFLAGS) $^ -o $(BINDIR)/tests
-	$(BINDIR)/tests
 
 clean: 
 	@rm -f $(OBJDIR)/*.o tests/*.o
