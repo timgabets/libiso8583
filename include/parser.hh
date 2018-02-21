@@ -26,6 +26,7 @@ typedef enum lenType {
 typedef struct iso8583field {
     int length;
     lenType lengthType;
+    contentType conType;
     encodingType encType;
     char description[64] = {0};
 } iso8583field;
@@ -41,3 +42,4 @@ typedef struct iso8583msg {
 } iso8583msg;
 
 int parse_message(const char*, iso8583msg*);
+
