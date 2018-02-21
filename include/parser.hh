@@ -1,3 +1,13 @@
+#ifndef PARSER_HH
+#define PARSER_HH
+
+typedef enum lengthType {
+    FIXED, 
+    LVAR,
+    LLVAR,
+    LLLVAR,
+    LLLLVAR
+} lengthType;
 
 typedef enum encodingType {
     BCH,
@@ -14,23 +24,14 @@ typedef enum contentType {
     CONTENT_TYPE_Z,
 } contentType;
 
-typedef enum lenType {
-    FIXED, 
-    LVAR,
-    LLVAR,
-    LLLVAR,
-    LLLLVAR
-} lenType;
-
 //1 :   { 'ContentType':'b',     'MaxLen': 8,   'LenType': LT.FIXED,   'Description': 'Bitmap' },
 typedef struct iso8583field {
     int length;
-    lenType lengthType;
-    contentType conType;
-    encodingType encType;
-    char description[64] = {0};
+    lengthType length_type;
+    encodingType encoding_type;
+    contentType content_type;
+    const char* description;
 } iso8583field;
-
 
 typedef struct iso8583msg {
     int mti;
@@ -43,3 +44,4 @@ typedef struct iso8583msg {
 
 int parse_message(const char*, iso8583msg*);
 
+#endif
