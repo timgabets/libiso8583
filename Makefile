@@ -23,7 +23,9 @@ CFLAGS=-g -O0 -std=c++11 -Wno-write-strings -I./include
 #	@mkdir $(OBJDIR)
 #
 
-all: obj/parser.o obj/parser_suite.o obj/main.o
+OBJECTS=obj/parser.o obj/parser_suite.o obj/main.o
+
+all: $(OBJECTS)
 
 obj/parser.o: src/parser.cc include/parser.hh
 	$(CC) $(CFLAGS) -c src/parser.cc -o $@
@@ -34,8 +36,8 @@ obj/parser_suite.o: obj/parser.o tests/parser_suite.cc
 obj/main.o: tests/main.cc include/snow.h
 	$(CC) $(CFLAGS) -c tests/main.cc -o $@
 
-test: tests/main.cc tests/parser_suite.cc
-	$(CC) $(CFLAGS) obj/parser.o obj/parser_suite.o obj/main.o -o bin/tests
+test: tests/main.cc tests/parser_suite.cc $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o bin/tests
 	@bin/tests
 
 clean: 
