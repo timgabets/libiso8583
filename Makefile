@@ -25,7 +25,7 @@ CODE_STYLE_OPTIONS=--style=linux --indent=tab -T8
 #
 
 OBJECTS=obj/parser.o obj/parser_suite.o obj/main.o obj/conv_tools.o
-TESTOBJECTS=obj/conv_tools_suite.o parser_suite.o
+TESTOBJECTS=obj/conv_tools_suite.o obj/parser_suite.o
 
 TESTSRCS=tests/main.cc tests/parser_suite.cc
 
@@ -42,9 +42,6 @@ obj/parser_suite.o: obj/parser.o tests/parser_suite.cc
 
 obj/conv_tools_suite.o: tests/conv_tools_suite.cc
 	$(CC) $(CFLAGS) -c tests/conv_tools_suite.cc -o $@
-
-parser_suite.o: tests/parser_suite.cc
-	$(CC) $(CFLAGS) -c tests/parser_suite.cc -o $@
 
 obj/main.o: tests/main.cc include/snow.h
 	$(CC) $(CFLAGS) -c tests/main.cc -o $@
