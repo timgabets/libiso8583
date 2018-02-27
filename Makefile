@@ -52,5 +52,8 @@ test: $(TESTSRCS) $(TESTOBJECTS) $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS)  $(TESTOBJECTS) -o bin/tests
 	@bin/tests
 
+check: 
+	cppcheck --force --enable=all src/*.cc
+
 clean: 
 	@rm -f obj/*.o tests/*.o
