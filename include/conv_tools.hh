@@ -1,2 +1,3 @@
 
-int bchtoa(const char*, char*);
+void bchtoa(const char*, char*, int);
+
