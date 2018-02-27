@@ -24,7 +24,7 @@ CODE_STYLE_OPTIONS=--style=linux --indent=tab -T8
 #	@mkdir $(OBJDIR)
 #
 
-OBJECTS=obj/parser.o obj/parser_suite.o obj/main.o obj/conv_tools.o
+OBJECTS=obj/parser.o obj/main.o obj/conv_tools.o
 TESTOBJECTS=obj/conv_tools_suite.o obj/parser_suite.o
 
 TESTSRCS=tests/main.cc tests/parser_suite.cc
