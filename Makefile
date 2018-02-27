@@ -1,6 +1,7 @@
 CC=g++
 CFLAGS=-g -o0 -std=c++11 -Wno-write-strings -I./include
-
+# Check astyle documentation for details http://astyle.sourceforge.net/astyle.html
+CODE_STYLE_OPTIONS=--style=linux --indent=tab -T8 
 #BINDIR=bin
 #OBJDIR=obj
 #
@@ -9,7 +10,7 @@ CFLAGS=-g -o0 -std=c++11 -Wno-write-strings -I./include
 #OBJS=$(patsubst src/%.cc,obj/%.o, $(SRCS))
 #
 #$(OBJS): $(SRCS) $(TESTS) | $(OBJDIR)
-#	$(CC) $(CFLAGS) -c $^ 
+#	$(CC) $(CFLAGS) -c $^
 #	@mv *.o $(OBJDIR)
 #
 #test: $(patsubst tests/%.cc,obj/%.o, $(TESTS)) $(OBJS) | $(BINDIR)
@@ -52,8 +53,11 @@ test: $(TESTSRCS) $(TESTOBJECTS) $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS)  $(TESTOBJECTS) -o bin/tests
 	@bin/tests
 
-check: 
+check:
 	cppcheck --force --enable=all src/*.cc
 
-clean: 
+indent:
+	@astyle $(CODE_STYLE_OPTIONS) src/*.cc
+
+clean:
 	@rm -f obj/*.o tests/*.o
