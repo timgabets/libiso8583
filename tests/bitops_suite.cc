@@ -31,4 +31,23 @@ describe(bitops_suite, {
 			asserteq_int(GETBIT(9), 128);
 		});
 	});
+
+	subdesc(isbitset_testcases, {
+		it("ISBITSET() should return false for each bit on zero-filled bitmap", {
+			unsigned char bitmap[16] = {0};
+			for(int i = 1; i <= 128; i++)
+				asserteq_int(ISBITSET(bitmap, i), false);
+		});
+		it("ISBITSET() single bit ", {
+			unsigned char bitmap[16] = {0};
+			/*
+ 			 * 0 0 0 0 0 0 0 1
+ 			 * 1 2 3 4 5 6 7 8
+ 			 */
+			bitmap[0] = '\x01';
+			for(int i = 1; i < 8; i++)
+				asserteq_int(ISBITSET(bitmap, i), false);
+			asserteq_int(ISBITSET(bitmap, 8), true);
+		});
+	});
 });

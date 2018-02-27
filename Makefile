@@ -58,6 +58,7 @@ check:
 	cppcheck --force --enable=all src/*.cc
 
 indent:
+	@astyle $(CODE_STYLE_OPTIONS) include/*.hh
 	@astyle $(CODE_STYLE_OPTIONS) src/*.cc
 
 clean:
