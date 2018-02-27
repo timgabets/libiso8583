@@ -23,7 +23,6 @@ int parse_mti(const char* msg, int length, encodingType encoding)
 	case BCH:
 		bchtoa(trimmed, converted, length);
 		return atoi(converted);
-		break;
 	case ASCII:
 		return atoi(trimmed);
 	default:

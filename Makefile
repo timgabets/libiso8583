@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-g -o0 -std=c++11 -Wno-write-strings -I./include
 # Check astyle documentation for details http://astyle.sourceforge.net/astyle.html
-CODE_STYLE_OPTIONS=--style=linux --indent=tab -T8 
+CODE_STYLE_OPTIONS=--style=linux --indent=tab -T8
 #BINDIR=bin
 #OBJDIR=obj
 #
@@ -25,9 +25,10 @@ CODE_STYLE_OPTIONS=--style=linux --indent=tab -T8
 #
 
 OBJECTS=obj/parser.o obj/main.o obj/conv_tools.o
-TESTOBJECTS=obj/conv_tools_suite.o obj/parser_suite.o
+TESTOBJECTS=obj/conv_tools_suite.o obj/parser_suite.o obj/bitops_suite.o
 
-TESTSRCS=tests/main.cc tests/parser_suite.cc
+TESTSRCS=tests/conv_tools_suite.cc tests/parser_suite.cc tests/bitops_suite.cc \
+	tests/main.cc
 
 all: $(OBJECTS) $(TESTOBJECTS)
 
@@ -42,6 +43,9 @@ obj/parser_suite.o: obj/parser.o tests/parser_suite.cc
 
 obj/conv_tools_suite.o: tests/conv_tools_suite.cc
 	$(CC) $(CFLAGS) -c tests/conv_tools_suite.cc -o $@
+
+obj/bitops_suite.o: tests/bitops_suite.cc include/bitops.hh
+	$(CC) $(CFLAGS) -c tests/bitops_suite.cc -o $@
 
 obj/main.o: tests/main.cc include/snow.h
 	$(CC) $(CFLAGS) -c tests/main.cc -o $@

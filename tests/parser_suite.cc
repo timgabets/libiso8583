@@ -24,6 +24,7 @@ describe(parser_suite, {
 			iso8583msg parsed;
 
 			asserteq_int(parse_message(msg, &parsed), 0);
+			asserteq_int(parsed.mti, 200);
 		});
 	});
 });
