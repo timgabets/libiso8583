@@ -4,14 +4,6 @@
 #include "stdlib.h"
 #include "string.h"
 
-#define FIELDSCNT 3
-
-iso8583field iso8583spec[FIELDSCNT] = {
-	{2,     FIXED,  BCH,    CONTENT_TYPE_B, "MTI"},
-	{16,    FIXED,  BCH,    CONTENT_TYPE_B, "Bitmap"},
-	{16,    LLVAR,  BCD,    CONTENT_TYPE_N, "Primary Account Number"}
-};
-
 int parse_mti(const char* msg, int length, encodingType encoding)
 {
 	char trimmed[8] = {0};
@@ -64,6 +56,14 @@ int parse_de002(const char* msg, iso8583field* f, iso8583msg* parsed)
 	return 0;
 }
 
+#define FIELDSCNT 4
+iso8583field iso8583spec[FIELDSCNT] = {
+	{2,     FIXED,  BCH,    CONTENT_TYPE_B, "MTI"},
+	{16,    FIXED,  BCH,    CONTENT_TYPE_B, "Bitmap"},
+	{16,    LLVAR,  BCD,    CONTENT_TYPE_N, "Primary Account Number"},
+	{6,     FIXED,  BCD,    CONTENT_TYPE_N, "Processing Code"}
+};
+
 int parse_message(const char* msg, iso8583msg* parsed)
 {
 	char* ptr = (char*) msg;
@@ -73,6 +73,8 @@ int parse_message(const char* msg, iso8583msg* parsed)
 	char* bitmap = ptr;
 	int bitmap_len = ISBITSET(bitmap, 1) ? 16 : 8;
 	ptr += bitmap_len;
+
+	parse_de002(ptr, &iso8583spec[2], parsed);
 
 	return 0;
 }
