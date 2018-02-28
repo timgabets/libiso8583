@@ -56,6 +56,20 @@ int parse_de002(const char* msg, iso8583field* f, iso8583msg* parsed)
 	return 0;
 }
 
+int parse_de003(const char* msg, iso8583field* f, iso8583msg* parsed)
+{
+	char converted[4] = {0};
+	switch(f->encoding_type){
+	case BCD:
+		bcdtoa(msg, converted, 1);
+		parsed->prcode = atoi(converted);
+		break;
+	default:
+		return -1;
+	}
+	return 0;
+}
+
 #define FIELDSCNT 4
 iso8583field iso8583spec[FIELDSCNT] = {
 	{2,     FIXED,  BCH,    CONTENT_TYPE_B, "MTI"},

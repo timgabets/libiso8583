@@ -44,6 +44,21 @@ describe(parser_suite, {
 		});
 	});
 
+	subdesc(parse_mti, {
+		it("parse_mti() should return -1 if MTI length is more than 4", {
+			const char* msg = "\x02\x00";
+			asserteq_int(parse_mti(msg, 5, BCH), -1);
+		});
+
+		it("parse_mti() should parse BCH-encoded MTI", {
+			const char* msg = "\x02\x00";
+			asserteq_int(parse_mti(msg, 2, BCH), 200);
+		});
+		it("parse_mti() should parse ASCII-encoded MTI", {
+			const char* msg = "1420999999";
+			asserteq_int(parse_mti(msg, 4, ASCII), 1420);
+		});
+	});
 
 	subdesc(parse_de002, {
 		it("parse_de002(): should parse BCH-encoded LLVAR PAN", {
@@ -54,19 +69,12 @@ describe(parser_suite, {
 		});
 	});
 
-	subdesc(parse_mti, {
-		it("should return -1 if MTI length is more than 4", {
-			const char* msg = "\x02\x00";
-			asserteq_int(parse_mti(msg, 5, BCH), -1);
-		});
-
-		it("should parse BCH-encoded MTI", {
-			const char* msg = "\x02\x00";
-			asserteq_int(parse_mti(msg, 2, BCH), 200);
-		});
-		it("should parse ASCII-encoded MTI", {
-			const char* msg = "1420999999";
-			asserteq_int(parse_mti(msg, 4, ASCII), 1420);
+	subdesc(parse_de003, {
+		it("parse_de003(): should parse BCH-encoded processing code", {
+			iso8583field f = {6, FIXED, BCD, CONTENT_TYPE_N, "DE03"};
+			const char* msg = "\x31\x01\x03";
+			asserteq_int(parse_de003(msg, &f, &parsed), 0);
+			asserteq_int(parsed.prcode, 31);
 		});
 	});
 
