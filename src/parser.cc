@@ -50,6 +50,17 @@ int get_data_len(const char* msg, iso8583field* f)
 
 int parse_de002(const char* msg, iso8583field* f, iso8583msg* parsed)
 {
+	char* ptr = (char*) msg;
+	int data_len = get_data_len(msg, f);
+
+	ptr += 1;
+
+	switch(f->encoding_type){
+	case BCD:
+		bcdtoa(ptr, parsed->PAN, data_len / 2);
+		break;
+	}
+
 	return 0;
 }
 
@@ -63,6 +74,5 @@ int parse_message(const char* msg, iso8583msg* parsed)
 	int bitmap_len = ISBITSET(bitmap, 1) ? 16 : 8;
 	ptr += bitmap_len;
 
-	memcpy(parsed->PAN, ptr, iso8583spec[2].length);
 	return 0;
 }

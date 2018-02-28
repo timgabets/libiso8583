@@ -50,7 +50,7 @@ describe(parser_suite, {
 			iso8583field f = {16, LLVAR, BCD, CONTENT_TYPE_N, "DE02"};
 			const char* msg = "\x16\x42\x19\x66\x40\x03\x34\x80\x03";
 			asserteq_int(parse_de002(msg, &f, &parsed), 0);
-			//asserteq_str(parsed.PAN, "4219664003348003");
+			asserteq_str(parsed.PAN, "4219664003348003");
 		});
 	});
 
