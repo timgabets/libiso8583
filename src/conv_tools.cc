@@ -11,3 +11,14 @@ void bchtoa(const char* src, char* dst, int len)
 	dst[len * 2] = '\0';
 }
 
+
+void bcdtoa(const char* src, char* dst, int len)
+{
+	for( int i = 0; i < len; i++ ) {
+		int left = ((unsigned char) src[i]) >> 4;
+		int right = src[i] & 0x0f;
+		dst[i * 2] = (char) (left + '0');
+		dst[i * 2 + 1] = (char) (right + '0');
+	}
+	dst[len * 2] = '\0';
+}

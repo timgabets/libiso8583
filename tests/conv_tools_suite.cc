@@ -2,6 +2,87 @@
 #include "conv_tools.hh"
 
 describe(conv_tools_suite, {
+	subdesc(bcdtoa, {
+		it("bcdtoa() => '00'", {
+			const char* src = "\x00";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, 1);
+			asserteq_str(dst, "00");
+		});
+
+		it("bcdtoa() => '010203040506070809'", {
+			const char* src = "\x01\x02\x03\x04\x05\x06\x07\x08\x09";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "010203040506070809");
+		});
+		it("bcdtoa() => '111213141516171819'", {
+			const char* src = "\x11\x12\x13\x14\x15\x16\x17\x18\x19";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "111213141516171819");
+		});
+		it("bcdtoa() => '212223242526272829'", {
+			const char* src = "\x21\x22\x23\x24\x25\x26\x27\x28\x29";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "212223242526272829");
+		});
+		it("bcdtoa() => '313233343536373839'", {
+			const char* src = "\x31\x32\x33\x34\x35\x36\x37\x38\x39";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "313233343536373839");
+		});
+		it("bcdtoa() => '414243444546474849'", {
+			const char* src = "\x41\x42\x43\x44\x45\x46\x47\x48\x49";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "414243444546474849");
+		});
+		it("bcdtoa() => '515253545556575859'", {
+			const char* src = "\x51\x52\x53\x54\x55\x56\x57\x58\x59";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "515253545556575859");
+		});
+		it("bcdtoa() => '616263646566676869'", {
+			const char* src = "\x61\x62\x63\x64\x65\x66\x67\x68\x69";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "616263646566676869");
+		});
+		it("bcdtoa() => '717273747576777879'", {
+			const char* src = "\x71\x72\x73\x74\x75\x76\x77\x78\x79";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "717273747576777879");
+		});
+		it("bcdtoa() => '818283848586878889'", {
+			const char* src = "\x81\x82\x83\x84\x85\x86\x87\x88\x89";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "818283848586878889");
+		});
+		it("bcdtoa() => '919293949596979899'", {
+			const char* src = "\x91\x92\x93\x94\x95\x96\x97\x98\x99";
+			char dst[64] = {0};
+
+			bcdtoa(src, dst, strlen(src));
+			asserteq_str(dst, "919293949596979899");
+		});
+});
+
 	subdesc(bchtoa, {
 		it("bchtoa() => '00'", {
 			const char* src = "\x00";
