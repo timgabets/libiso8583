@@ -89,6 +89,9 @@ int parse_message(const char* msg, iso8583msg* parsed)
 	ptr += bitmap_len;
 
 	parse_de002(ptr, &iso8583spec[2], parsed);
+	ptr += 9;
+
+	parse_de003(ptr, &iso8583spec[3], parsed);
 
 	return 0;
 }

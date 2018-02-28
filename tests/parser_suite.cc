@@ -86,6 +86,7 @@ describe(parser_suite, {
 			asserteq_int(parse_message(msg, &parsed), 0);
 			asserteq_int(parsed.mti, 200);
 			asserteq_str(parsed.PAN, "4219664003348003");
+			asserteq_int(parsed.prcode, 31);
 		});
 	});
 });
