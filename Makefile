@@ -62,4 +62,4 @@ indent:
 	@astyle $(CODE_STYLE_OPTIONS) src/*.cc
 
 clean:
-	@rm -f obj/*.o tests/*.o
+	@rm -f obj/*.o tests/*.o src/*.orig

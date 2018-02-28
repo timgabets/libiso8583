@@ -37,7 +37,7 @@ int parse_mti(const char* msg, int length, encodingType encoding)
 int get_data_len(const char* msg, iso8583field* f)
 {
 	char converted[8] = {0};
-	switch(f->length_type){
+	switch(f->length_type) {
 	case FIXED:
 		return f->length;
 	case LLVAR:
@@ -64,20 +64,5 @@ int parse_message(const char* msg, iso8583msg* parsed)
 	ptr += bitmap_len;
 
 	memcpy(parsed->PAN, ptr, iso8583spec[2].length);
-/*
-	for(int i = 0; i < FIELDSCNT; i++) {
-		iso8583field f = iso8583spec[i];
-
-		switch(i) {
-		case 0:
-			parsed->mti = parse_mti(msg, f.length, f.encoding_type);
-			break;
-		case 1:
-			break;
-		default:
-			break;
-		}
-	}
-*/
 	return 0;
 }
