@@ -4,9 +4,19 @@
 static iso8583msg parsed;
 
 describe(parser_suite, {
+	subdesc(get_data_len, {
+		it("get_data_len(): should get FIXED field data length", {
+			iso8583field f = {6, FIXED, BCH, CONTENT_TYPE_N, "DE03"};
+			const char* msg = "\x31\x01\x02";
+			asserteq_int(get_data_len(msg, &f), 6);
+			//asserteq_str(parsed.PAN, "4219664003348003");
+		});
+	});
+
+
 	subdesc(parse_de002, {
 		it("parse_de002(): should parse BCH-encoded LLVAR PAN", {
-			iso8583field f = {16,    LLVAR,  BCD,    CONTENT_TYPE_N, "Primary Account Number"};
+			iso8583field f = {16, LLVAR, BCD, CONTENT_TYPE_N, "DE02"};
 			const char* msg = "\x16\x42\x19\x66\x40\x03\x34\x80\x03";
 			asserteq_int(parse_de002(msg, &f, &parsed), 0);
 			//asserteq_str(parsed.PAN, "4219664003348003");

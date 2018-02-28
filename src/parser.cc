@@ -34,6 +34,14 @@ int parse_mti(const char* msg, int length, encodingType encoding)
 	return -1;
 }
 
+int get_data_len(const char* msg, iso8583field* f)
+{
+	switch(f->length_type){
+	case FIXED:
+		return f->length;
+
+	}
+}
 
 int parse_de002(const char* msg, iso8583field* f, iso8583msg* parsed)
 {

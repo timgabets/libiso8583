@@ -43,6 +43,8 @@ typedef struct iso8583msg {
 
 int parse_message(const char*, iso8583msg*);
 
+int get_data_len(const char*, iso8583field*);
+
 int parse_de002(const char*, iso8583field*, iso8583msg*);
 
 int parse_mti(const char*, int, encodingType);
