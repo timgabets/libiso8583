@@ -31,7 +31,17 @@ describe(parser_suite, {
 				asserteq_int(get_data_len(msg, &f), lengths[i]);
 			}
 		});
+		it("get_data_len(): should get LLVAR field data length 90-99", {
+			iso8583field f = {19, LLVAR, BCD, CONTENT_TYPE_N, "DE02"};
+			char values[11] = "\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99";
+			int lengths[11] =   {90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 0};
 
+			char msg[19] = "\x10\x44";
+			for (int i = 0; i < 11; i++) {
+				msg[0] = values[i];
+				asserteq_int(get_data_len(msg, &f), lengths[i]);
+			}
+		});
 	});
 
 
