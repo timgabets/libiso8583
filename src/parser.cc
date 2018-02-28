@@ -36,11 +36,16 @@ int parse_mti(const char* msg, int length, encodingType encoding)
 
 int get_data_len(const char* msg, iso8583field* f)
 {
+	char converted[8] = {0};
 	switch(f->length_type){
 	case FIXED:
 		return f->length;
-
+	case LLVAR:
+		// TODO: skip conversion to ASCII
+		bcdtoa(msg, converted, 1);
+		return atoi(converted);
 	}
+	return -1;
 }
 
 int parse_de002(const char* msg, iso8583field* f, iso8583msg* parsed)

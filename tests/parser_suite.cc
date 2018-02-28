@@ -1,5 +1,6 @@
 #include "snow.h"
 #include "parser.hh"
+#include "stdio.h"
 
 static iso8583msg parsed;
 
@@ -11,6 +12,26 @@ describe(parser_suite, {
 			asserteq_int(get_data_len(msg, &f), 6);
 			//asserteq_str(parsed.PAN, "4219664003348003");
 		});
+		it("get_data_len(): should get LLVAR field data length 0-9", {
+			iso8583field f = {19, LLVAR, BCD, CONTENT_TYPE_N, "DE02"};
+			char msg[19] = {0};
+			for(int i = '\x00'; i <= '\x09'; i++) {
+				msg[0] = i;
+				asserteq_int(get_data_len(msg, &f), i);
+			}
+		});
+		it("get_data_len(): should get LLVAR field data length 10-19", {
+			iso8583field f = {19, LLVAR, BCD, CONTENT_TYPE_N, "DE02"};
+			char values[11] = "\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19";
+			int lengths[11] =   {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 0};
+
+			char msg[19] = "\x10\x44";
+			for (int i = 0; i < 11; i++) {
+				msg[0] = values[i];
+				asserteq_int(get_data_len(msg, &f), lengths[i]);
+			}
+		});
+
 	});
 
 
