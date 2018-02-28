@@ -24,7 +24,6 @@ typedef enum contentType {
 	CONTENT_TYPE_Z,
 } contentType;
 
-//1 :   { 'ContentType':'b',     'MaxLen': 8,   'LenType': LT.FIXED,   'Description': 'Bitmap' },
 typedef struct iso8583field {
 	int length;
 	lengthType length_type;
@@ -43,6 +42,9 @@ typedef struct iso8583msg {
 } iso8583msg;
 
 int parse_message(const char*, iso8583msg*);
-int parse_mti(const char* msg, int length, encodingType encoding);
+
+int parse_de002(const char*, iso8583field*, iso8583msg*);
+
+int parse_mti(const char*, int, encodingType);
 
 #endif
