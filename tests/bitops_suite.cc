@@ -36,7 +36,7 @@ describe(bitops_suite, {
 		it("ISBITSET() should return false for each bit on zero-filled bitmap", {
 			unsigned char bitmap[16] = {0};
 			for(int i = 1; i <= 128; i++)
-				asserteq_int(ISBITSET(bitmap, i), false);
+				assert( !ISBITSET(bitmap, i) );
 		});
 		it("ISBITSET() should check the single bit ", {
 			unsigned char bitmap[16] = {0};
@@ -46,8 +46,8 @@ describe(bitops_suite, {
  			 */
 			bitmap[0] = '\x01';
 			for(int i = 1; i < 8; i++)
-				asserteq_int(ISBITSET(bitmap, i), false);
-			asserteq_int(ISBITSET(bitmap, 8), true);
+				assert( !ISBITSET(bitmap, i) );
+			assert( ISBITSET(bitmap, 8) );
 		});
 
 		it("ISBITSET() should check multiple bits", {
