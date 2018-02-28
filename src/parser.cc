@@ -40,6 +40,7 @@ int get_data_len(const char* msg, iso8583field* f)
 	return -1;
 }
 
+// TODO: should return num of bytes read
 int parse_de002(const char* msg, iso8583field* f, iso8583msg* parsed)
 {
 	char* ptr = (char*) msg;
@@ -96,6 +97,9 @@ int parse_message(const char* msg, iso8583msg* parsed)
 	ptr += bitmap_len;
 
 	for(int i = 2; i < FIELDSCNT; i++) {
+		if(!ISBITSET(bitmap, i))
+			continue;
+
 		iso8583field* f = &iso8583spec[i];
 		if(de_handlers[i]){
 			de_handlers[i](ptr, &iso8583spec[i], parsed);
