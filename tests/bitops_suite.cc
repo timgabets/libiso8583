@@ -38,7 +38,7 @@ describe(bitops_suite, {
 			for(int i = 1; i <= 128; i++)
 				asserteq_int(ISBITSET(bitmap, i), false);
 		});
-		it("ISBITSET() single bit ", {
+		it("ISBITSET() should check the single bit ", {
 			unsigned char bitmap[16] = {0};
 			/*
  			 * 0 0 0 0 0 0 0 1
@@ -49,5 +49,23 @@ describe(bitops_suite, {
 				asserteq_int(ISBITSET(bitmap, i), false);
 			asserteq_int(ISBITSET(bitmap, 8), true);
 		});
+
+		it("ISBITSET() should check multiple bits", {
+			unsigned char bitmap[16] = {0};
+			/*
+ 			 * 0 1 0 1 0 1 0 1
+ 			 * 1 2 3 4 5 6 7 8
+ 			 */
+			bitmap[0] = '\x55';
+			assert( !ISBITSET(bitmap, 1) );
+			assert( ISBITSET(bitmap, 2) );
+			assert( !ISBITSET(bitmap, 3) );
+			assert( ISBITSET(bitmap, 4) );
+			assert( !ISBITSET(bitmap, 5) );
+			assert( ISBITSET(bitmap, 6) );
+			assert( !ISBITSET(bitmap, 7) );
+			assert( ISBITSET(bitmap, 2) );
+		});
+
 	});
 });
