@@ -78,7 +78,9 @@ iso8583field iso8583spec[FIELDSCNT] = {
 	{6,     FIXED,  BCD,    CONTENT_TYPE_N, "Processing Code"}
 };
 
-int (*de_handlers[2])(const char*, iso8583field*, iso8583msg*) = {
+int (*de_handlers[FIELDSCNT])(const char*, iso8583field*, iso8583msg*) = {
+	NULL,
+	NULL,
 	parse_de002,
 	parse_de003
 };
@@ -93,15 +95,12 @@ int parse_message(const char* msg, iso8583msg* parsed)
 	int bitmap_len = ISBITSET(bitmap, 1) ? 16 : 8;
 	ptr += bitmap_len;
 
-
 	for(int i = 2; i < FIELDSCNT; i++) {
 		iso8583field* f = &iso8583spec[i];
+		if(de_handlers[i]){
+			de_handlers[i](ptr, &iso8583spec[i], parsed);
+			ptr += 9;
+		}
 	}
-
-	de_handlers[0](ptr, &iso8583spec[2], parsed);
-	ptr += 9;
-
-	de_handlers[1](ptr, &iso8583spec[3], parsed);
-
 	return 0;
 }
