@@ -77,4 +77,17 @@ describe(bitops_suite, {
 			assert( ISBITSET(bitmap, 3) );
 		});
 	});
+
+	subdesc(clrbit_testcases, {
+		it("CLRBIT() should clear the proper bit in a given bitmap", {
+			unsigned char bitmap[16] = {0};
+			for(int i = 1; i <= 64; i++) {
+				SETBIT(bitmap, i);
+				assert( ISBITSET(bitmap, i) );
+				CLRBIT(bitmap, i);
+				assert( !ISBITSET(bitmap, i) );
+			}
+		});
+	});
+
 });
