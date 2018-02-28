@@ -97,14 +97,12 @@ int parse_message(const char* msg, iso8583msg* parsed)
 	ptr += bitmap_len;
 
 	for(int i = 2; i < FIELDSCNT; i++) {
-		if(!ISBITSET(bitmap, i))
+		if(!ISBITSET(bitmap, i) || !de_handlers[i])
 			continue;
 
 		iso8583field* f = &iso8583spec[i];
-		if(de_handlers[i]){
-			de_handlers[i](ptr, &iso8583spec[i], parsed);
-			ptr += 9;
-		}
+		de_handlers[i](ptr, &iso8583spec[i], parsed);
+		ptr += 9;
 	}
 	return 0;
 }
