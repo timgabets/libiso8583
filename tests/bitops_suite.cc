@@ -68,4 +68,13 @@ describe(bitops_suite, {
 		});
 
 	});
+
+	subdesc(setbit_testcases, {
+		it("SETBIT() should set the proper bit in a given bitmap", {
+			unsigned char bitmap[16] = {0};
+			assert( !ISBITSET(bitmap, 3) );
+			SETBIT(bitmap, 3);
+			assert( ISBITSET(bitmap, 3) );
+		});
+	});
 });
